@@ -28,8 +28,8 @@ public class PaneOrganizerInicio {
 	private Button acerca;
 	private Button salir;
 	
-	private Image imgLogo = new Image("logo.png");
-	private String img = "fondoshark.jpg";
+	private Image imgLogo = new Image("Images/logo.png");
+	private String img = "Images/fondoshark.jpg";
 	
 	private ImageView logo = new ImageView();
 	

@@ -15,13 +15,19 @@ import javafx.scene.layout.Pane;
 public class PaneOrganizer {
 	
 	private Pane root;
-	private String img = "oceano.jpg";
+	private String img = "Images/oceano3.jpg";
 	
-	private Image imgDiver = new Image("diver.gif");
-	private Image imgShark = new Image("shark.gif");
-	private Image imgSharkb = new Image("sharkb.gif");
-	private Image imgPirana = new Image("pez.gif");
+	private Image imgScore = new Image("Images/score.png");
+	private Image imgLives = new Image("Images/snorkel.png");
+	private Image imgLevel = new Image("Images/level.png");
+	private Image imgDiver = new Image("Images/diver.gif");
+	private Image imgShark = new Image("Images/shark.gif");
+	private Image imgSharkb = new Image("Images/sharkb.gif");
+	private Image imgPirana = new Image("Images/pez.gif");
 	
+	private ImageView score = new ImageView();
+	private ImageView lives = new ImageView();
+	private ImageView level = new ImageView();
 	private ImageView diver = new ImageView();
 	private ImageView shark = new ImageView();
 	private ImageView sharkb = new ImageView();
@@ -36,6 +42,9 @@ public class PaneOrganizer {
            + "-fx-background-position: center center; "
            + "-fx-background-repeat: stretch;");
         
+        score.setImage(imgScore);
+        lives.setImage(imgLives);
+        level.setImage(imgLevel);
         diver.setImage(imgDiver);
         shark.setImage(imgShark);
         shark2.setImage(imgShark);
@@ -43,37 +52,52 @@ public class PaneOrganizer {
         sharkb.setImage(imgSharkb);
         pirana.setImage(imgPirana);
         
-        diver.setFitWidth(250);
-        diver.setFitHeight(250);
+        score.setFitWidth(35);
+        score.setFitHeight(35);
+        score.setX(25);
+        score.setY(10);
+        
+        lives.setFitWidth(35);
+        lives.setFitHeight(35);
+        lives.setX(225);
+        lives.setY(10);
+        
+        level.setFitWidth(60);
+        level.setFitHeight(20);
+        level.setX(425);
+        level.setY(18);
+        
+        diver.setFitWidth(200);
+        diver.setFitHeight(100);
         diver.setX(0);
-        diver.setY(0);
+        diver.setY(70);
         
         shark.setFitWidth(200);
-        shark.setFitHeight(100);
-        shark.setX(500);
-        shark.setY(25);
+        shark.setFitHeight(80);
+        shark.setX(680);
+        shark.setY(80);
         
         sharkb.setFitWidth(200);
         sharkb.setFitHeight(150);
-        sharkb.setX(500);
-        sharkb.setY(100);
+        sharkb.setX(680);
+        sharkb.setY(120);
         
-        pirana.setFitWidth(75);
-        pirana.setFitHeight(50);
-        pirana.setX(500);
-        pirana.setY(225);
+        pirana.setFitWidth(65);
+        pirana.setFitHeight(40);
+        pirana.setX(680);
+        pirana.setY(240);
         
         shark2.setFitWidth(200);
         shark2.setFitHeight(100);
-        shark2.setX(500);
+        shark2.setX(680);
         shark2.setY(270);
         
         sharkb2.setFitWidth(200);
         sharkb2.setFitHeight(150);
-        sharkb2.setX(500);
+        sharkb2.setX(680);
         sharkb2.setY(340);
         
-        root.getChildren().addAll(diver, shark, sharkb, pirana);
+        root.getChildren().addAll(score, lives, level, diver, shark, sharkb, pirana);
 	}
 	
 	
