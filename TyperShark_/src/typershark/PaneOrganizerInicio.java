@@ -6,10 +6,14 @@ package typershark;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 
 /**
  * @author Elizabeth Sánchez, Paul Estrada, Stefany Lindao.
@@ -17,26 +21,42 @@ import javafx.scene.layout.VBox;
  */
 public class PaneOrganizerInicio {
 	
-	private VBox root;
+	private BorderPane root;
+	private HBox hb;
 	private Button jugar;
 	private Button estadistica;
+	private Button acerca;
 	private Button salir;
 	
+	private Image imgLogo = new Image("logo.png");
 	private String img = "fondoshark.jpg";
-    
+	
+	private ImageView logo = new ImageView();
+	
 	public PaneOrganizerInicio(){
-		root = new VBox();
+		root = new BorderPane();
+		hb = new HBox();
 		
+		logo.setImage(imgLogo);
+		logo.setFitWidth(325);
+        logo.setFitHeight(250);
+
+        root.setCenter(logo);
+
 		jugar = new Button("Jugar");
-		jugar.setStyle("-fx-font: 14 centaur; -fx-base: #000000;");
+		jugar.setStyle("-fx-font: 14 forte; -fx-base: #000000;");
 		jugar.setMaxSize(80, 40);
 		
 		estadistica = new Button("Estadísticas");
-		estadistica.setStyle("-fx-font: 14 centaur; -fx-base: #000000;");
-		estadistica.setMaxSize(80, 40);
+		estadistica.setStyle("-fx-font: 14 forte; -fx-base: #000000;");
+		estadistica.setMaxSize(100, 40);
+		
+		acerca = new Button("Acerca De");
+		acerca.setStyle("-fx-font: 14 forte; -fx-base: #000000;");
+		acerca.setMaxSize(80, 40);
 		
 		salir = new Button("Salir");
-		salir.setStyle("-fx-font: 14 centaur; -fx-base: #000000;");
+		salir.setStyle("-fx-font: 14 forte; -fx-base: #000000;");
 		salir.setMaxSize(80, 40);
 		salir.setOnAction(new ClickHandlerQuit());
 		
@@ -44,9 +64,14 @@ public class PaneOrganizerInicio {
            + "-fx-background-position: center center; "
            + "-fx-background-repeat: stretch;");
         
-        root.getChildren().addAll(jugar, estadistica, salir);
-        root.setAlignment(Pos.CENTER_RIGHT);
-        root.setSpacing(10);
+        hb.getChildren().addAll(jugar, estadistica, acerca, salir);
+        hb.setAlignment(Pos.CENTER);
+        hb.setPadding(new Insets(15, 15, 15, 15));
+        hb.setSpacing(10);
+        root.setBottom(hb);
+        
+
+        
 	}
 	
 	public Pane getRoot() {
