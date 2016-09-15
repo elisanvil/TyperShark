@@ -1,10 +1,27 @@
+/*
+* @(#)ControlHilos.java	0.1		24/08/2016
+
+*
+* Copyright (c) 2016.
+* Paul Estrada León, Stefany Lindao Rodríguez, Elizabeth Sánchez Villamar.
+* ESPOL. Guayaquil, Ecuador.
+* Todos los derechos reservados.
+*
+*/
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Random;
-
 import javafx.application.Platform;
 
+/**
+ * La clase ControlHilos maneja los hilos integrados al buceador
+ * y los animales marinos.
+ * 
+ * @version: 	0.1		24/08/2016
+ * @author: 	Paul Estrada León, Stefany Lindao Rodríguez, Elizabeth Sánchez Villamar.
+ */
 public class ControlHilos implements Runnable {
 
 	private static boolean jugando;
@@ -19,15 +36,26 @@ public class ControlHilos implements Runnable {
 	public static Thread hilo5;
 	private Tiburon[] tiburones;
 	private Pirana[] piranas;
+	private Pulpo[] pulpos;
 	private TiburonNegro[] tiburonesNegros;
 	
-	public ControlHilos(Buceador buzo, Tiburon[] tiburones, Pirana[] piraÃ±as, TiburonNegro[] tiburonesNegros) {
+	/**
+	 * Método que toma como parámetros los objetos que se envían desde la clase OrganizadorJuego.
+	 * Los guarda en sus respectivos Arrays e inicializa los 5 hilos que moverán aleatoriamente a 
+	 * estos objetos.
+	 * @param: buzo
+	 * @param: tiburones
+	 * @param: piranas
+	 * @param: tiburonesNegros
+	 */
+	public ControlHilos(Buceador buzo, Tiburon[] tiburones, Pirana[] piranas, TiburonNegro[] tiburonesNegros, Pulpo[] pulpos) {
 		jugando = true;
 		
 		this.setBuzo(buzo);
 		this.tiburones = tiburones;
-		this.piranas = piraÃ±as;
+		this.piranas = piranas;
 		this.tiburonesNegros = tiburonesNegros;
+		this.pulpos = pulpos;
 		
 		hiloBuzo = new Thread(buzo);
 		hiloBuzo.start();
@@ -39,6 +67,11 @@ public class ControlHilos implements Runnable {
 		hilo5 = new Thread();
 	}
 	
+	/**
+	 * Método llamado por el método run, el cual, hace que revise qué hilo está desocupado 
+	 * y listo para usar. Una vez elegido un hilo desocupado, se elige aleatoriamente un objeto 
+	 * para que dicho hilo se encargue de darle vida.
+	 */
 	private void elegirHilo () throws FileNotFoundException, IOException {
 		Hashtable<String, Integer> dic = this.posicionAleatoria();
 		this.restaurarHilo();
@@ -71,6 +104,10 @@ public class ControlHilos implements Runnable {
 		} 
 	}
 	
+	/**
+	 * Método llamado por el método elegirHilo. Se encarga de borrar la información 
+	 * previa del hilo que recién ha sido desocupado.
+	 */
 	private void restaurarHilo () {
 		if (hilo1.isAlive() == false) {
 			hilo1 = new Thread();
@@ -85,9 +122,18 @@ public class ControlHilos implements Runnable {
 		} 
 	}
 	
+	/**
+	 * Método que se encarga de elegir mediante aleatorios un tipo de animal. Una vez elegido 
+	 * el tipo de animal, se escoge al primer animal desocupado de su respectivo array.
+	 * @param: x
+	 * @param: y
+	 * @return: tiburones
+	 * @return: piranas
+	 * @return: tiburonesNegros
+	 */
 	private Objeto elegirObjeto(int x, int y) throws FileNotFoundException, IOException {
 		while (true) {
-			int index = random.nextInt(this.tiburones.length + this.piranas.length + this.tiburonesNegros.length);
+			int index = random.nextInt(this.tiburones.length + this.piranas.length + this.tiburonesNegros.length + this.pulpos.length);
 			if (index == 0) {
 				for (int i=0;i<this.tiburones.length;i++) {
 					if (this.tiburones[i].isVivo() == false) {
@@ -114,6 +160,20 @@ public class ControlHilos implements Runnable {
 						return this.piranas[i];
 					}
 				}
+				
+			} else if (index == 2) {
+				for (int i=0;i<this.pulpos.length;i++) {
+					if (this.pulpos[i].isVivo() == false) {
+						this.pulpos[i].getImageView().setLayoutX(x);
+						this.pulpos[i].getImageView().setLayoutY(y);
+						this.pulpos[i].getLabel().setLayoutX(x + 50);
+						this.pulpos[i].getLabel().setLayoutY(y + 30);
+						this.pulpos[i].getLabel().requestFocus();
+						this.pulpos[i].colocarPalabra();
+						this.pulpos[i].resetMatando();
+						return this.pulpos[i];
+					}
+				}
 			} else {
 				for (int i=0;i<this.tiburonesNegros.length;i++) {
 					if (this.tiburonesNegros[i].isVivo() == false) {
@@ -131,6 +191,10 @@ public class ControlHilos implements Runnable {
 		}
 	}
 
+	/**
+	 * Método que genera un Hashtable<String,Integer> con dos posiciones aleatorias: X y Y
+	 * @return: dic
+	 */
 	private Hashtable<String,Integer> posicionAleatoria() {
 		int posicionY = (random.nextInt(400) + 50);
 		int posicionX = 1000;
@@ -142,6 +206,11 @@ public class ControlHilos implements Runnable {
 	
 	
 	@Override
+	/**
+	 * Método implementado por la interfaz Runnable.
+	 * Se encarga de llamar repetidas veces al método elegirHilo para que siempre hayan hilos 
+	 * activos en el juego.
+	 */
 	public void run() {
 		while (jugando) {
 			Platform.runLater(new Runnable() {
@@ -162,7 +231,10 @@ public class ControlHilos implements Runnable {
 			}
 		}
 	}
-	
+		
+	/**
+	 * Método estático que finaliza el juego. Hace que se detengan todos los objetos en la ventana.
+	 */
 	public static void detenerJuego () {
 		jugando = false;
 		
@@ -180,12 +252,24 @@ public class ControlHilos implements Runnable {
 		OrganizadorJuego.tiburonNegro1.setVivo(false);
 		OrganizadorJuego.tiburonNegro2.setVivo(false);
 		
+		OrganizadorJuego.pulpo1.setVivo(false);
+		OrganizadorJuego.pulpo2.setVivo(false);
+		
 	}
 
+	/**
+	 * Método que permite obtener el buceador.
+	 * @return: buzo
+	 */
 	public Buceador getBuzo() {
 		return buzo;
 	}
 
+	/**
+	 * Método que da acceso al buceador para su
+	 * posterior modificación.
+	 * @param: buzo
+	 */
 	public void setBuzo(Buceador buzo) {
 		this.buzo = buzo;
 	}
