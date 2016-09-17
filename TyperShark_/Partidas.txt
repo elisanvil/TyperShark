@@ -1,0 +1,4 @@
+Ste nivel: 1
+Eli nivel: 2
+Liza nivel: 1
+Leo nivel: 3
