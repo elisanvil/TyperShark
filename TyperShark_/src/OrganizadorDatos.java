@@ -19,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 
 
 /**
@@ -43,8 +45,7 @@ public class OrganizadorDatos {
 	
 	/**
 	 * Método que construye un objeto OrganizadorDatos que será instanciado en la clase OrganizadorJuego.
-	 * Por medio de esta interfaz,
-	 * el usuario ingresa su nickname.
+	 * Por medio de esta interfaz, el usuario ingresa su nickname.
 	 * @param: handler
 	 */
 	public OrganizadorDatos (EventHandler<ActionEvent> handler) {
@@ -54,29 +55,32 @@ public class OrganizadorDatos {
 		raiz.setPrefHeight(140.0);
 		raiz.setPrefWidth(250.0);
 		
-		fondo = new Rectangle(250.0,140.0);
+		fondo = new Rectangle(250.0,150.0);
 		fondo.setFill(Color.WHITE);
 		
-		tituloLabel = new Label("INGRESE NICKNAME");
-		tituloLabel.setLayoutX(70.0);
-		tituloLabel.setLayoutY(10.0);
+		tituloLabel = new Label("Jugador");
+		tituloLabel.setFont(Font.font("Comic Sans MS", FontPosture.REGULAR, 15.0));
+		tituloLabel.setLayoutX(90.0);
+		tituloLabel.setLayoutY(20.0);
 		
 		nombreLabel = new Label("Nickname: ");
+		nombreLabel.setFont(Font.font("Comic Sans MS", FontPosture.REGULAR, 13.0));
 		nombreLabel.setLayoutX(10.0);
-		nombreLabel.setLayoutY(55.0);
+		nombreLabel.setLayoutY(60.0);
 		
 		nombreTF = new TextField();
-		nombreTF.setPrefHeight(30.0);
+		nombreTF.setPrefHeight(25.0);
 		nombreTF.setPrefWidth(150.0);
-		nombreTF.setLayoutX(90.0);
-		nombreTF.setLayoutY(50.0);
+		nombreTF.setLayoutX(80.0);
+		nombreTF.setLayoutY(60.0);
 		
 		botonGuardar = new Button("Continuar");
 		botonGuardar.setOnAction(handler);
-		botonGuardar.setLayoutX(70.0);
+		botonGuardar.setLayoutX(90.0);
 		botonGuardar.setLayoutY(100.0);
 		
 		raiz.getChildren().addAll(fondo,tituloLabel,nombreLabel,nombreTF,botonGuardar);
+		
 	}
 	
 	/**
