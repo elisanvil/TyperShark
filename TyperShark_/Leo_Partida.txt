@@ -1,0 +1,6 @@
+vidas 1
+poderEspecial false
+puntaje 12000
+nivel 3
+nombre Leo
+acumulado 1050

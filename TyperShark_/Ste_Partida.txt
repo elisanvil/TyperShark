@@ -1,0 +1,6 @@
+vidas 3
+poderEspecial true
+puntaje 600
+nivel 1
+nombre Ste
+acumulado 600

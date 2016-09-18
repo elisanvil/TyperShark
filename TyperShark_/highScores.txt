@@ -1,0 +1,8 @@
+1 Stef 1500
+1 Scott 1200
+2 Leo 5700
+2 Eliza 2000
+3 Jean 12000
+4 Jen 1000
+5 Jul 2500
+6 Mat 200
